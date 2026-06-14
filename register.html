@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | BCA Department</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <section class="login-section">
+
+        <div class="login-box">
+
+            <h1>Student Registration</h1>
+
+            <form id="registerForm">
+
+                <!-- Full Name -->
+                <input type="text" id="name" placeholder="Full Name" required>
+
+                <!-- Email -->
+                <input type="email" id="email" placeholder="Email Address" required>
+
+                <!-- Mobile -->
+                <input type="tel" id="mobile" placeholder="Mobile Number" required>
+
+                <!-- Session -->
+                <select id="session" required>
+                    <option value="">Select Session</option>
+                    <option value="2023-26">2023-26</option>
+                    <option value="2024-27">2024-27</option>
+                    <option value="2025-28">2025-28</option>
+                    <option value="2026-29">2026-29</option>
+                </select>
+
+                <!-- Roll Number -->
+                <input type="number" id="rollno" placeholder="University Roll Number (Optional)">
+
+                <!-- Profile Photo -->
+                <label>Profile Photo</label>
+                <input type="file" id="photo" accept="image/*">
+
+                <!-- Password -->
+                <input type="password" id="password" placeholder="Create Password" required>
+
+                <!-- Confirm Password -->
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+
+                <!-- Register Button -->
+                <button type="button" onclick="registerUser()">
+                    Register
+                </button>
+
+            </form>
+
+            <p>
+                Already have an account?
+                <a href="login.html">Login Here</a>
+            </p>
+
+        </div>
+
+    </section>
+
+    <script>
+        function registerUser() {
+            // Get values
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let mobile = document.getElementById("mobile").value.trim();
+            let session = document.getElementById("session").value;
+            let rollno = document.getElementById("rollno").value.trim();
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirmPassword").value;
+
+            // Check for empty required fields
+            if (name === "") {
+                alert("Please enter Full Name!");
+                return;
+            }
+
+            if (email === "") {
+                alert("Please enter Email Address!");
+                return;
+            }
+
+            if (mobile === "") {
+                alert("Please enter Mobile Number!");
+                return;
+            }
+
+            if (session === "") {
+                alert("Please select Session!");
+                return;
+            }
+
+            if (password === "") {
+                alert("Please create a Password!");
+                return;
+            }
+
+            if (confirmPassword === "") {
+                alert("Please confirm your Password!");
+                return;
+            }
+
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            // Check if email already registered
+            let existingUser = localStorage.getItem("student");
+            if (existingUser) {
+                let userData = JSON.parse(existingUser);
+                if (userData.email === email) {
+                    alert("This email is already registered! Please login.");
+                    return;
+                }
+                if (userData.mobile === mobile) {
+                    alert("This mobile number is already registered!");
+                    return;
+                }
+            }
+
+            // Handle profile photo
+            let photoInput = document.getElementById("photo");
+            let photoURL = "https://via.placeholder.com/150";
+
+            if (photoInput.files.length > 0) {
+                photoURL = URL.createObjectURL(photoInput.files[0]);
+            }
+
+            // Create user object
+            let user = {
+                name: name,
+                email: email,
+                mobile: mobile,
+                session: session,
+                rollno: rollno,
+                password: password,
+                photo: photoURL
+            };
+
+            // Save to localStorage
+            localStorage.setItem("student", JSON.stringify(user));
+
+            alert("Registration Successful!");
+
+            // Redirect to login page
+            window.location.href = "login.html";
+        }
+    </script>
+
+</body>
+
+</html>

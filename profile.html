@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Your Information</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Profile Header Start -->
+    <header class="dashboard-header">
+        <h1>Your Information</h1>
+        <p>BCA Department | MS College Motihari</p>
+    </header>
+    <!-- Profile Header End -->
+
+    <!-- Profile Card Start -->
+    <section class="profile-section">
+
+        <div class="profile-card">
+
+            <!-- Student Photo -->
+            <img id="profilePhoto" src="https://via.placeholder.com/150" alt="Student Photo" class="profile-img">
+
+            <div class="profile-info">
+
+                <p><strong>Name:</strong>
+                    <span id="studentName"></span>
+                </p>
+
+                <p><strong>Session:</strong>
+                    <span id="studentSession"></span>
+                </p>
+
+                <p><strong>University Roll No:</strong>
+                    <span id="studentRoll"></span>
+                </p>
+
+                <p><strong>Email:</strong>
+                    <span id="studentEmail"></span>
+                </p>
+
+                <p><strong>Mobile:</strong>
+                    <span id="studentMobile"></span>
+                </p>
+
+            </div>
+            <button onclick="window.location.href='edit-profile.html'" class="edit-btn">
+                Edit Profile
+            </button>
+        </div>
+
+    </section>
+    <!-- Profile Card End -->
+
+    <!-- Footer Start -->
+    <footer>
+        <p>© 2026 BCA Department | MS College Motihari</p>
+    </footer>
+    <!-- Footer End -->
+
+    <script>
+        // Load student data from localStorage
+        let student = JSON.parse(localStorage.getItem("student"));
+
+        if (student) {
+            document.getElementById("studentName").innerText = student.name || "Not Provided";
+            document.getElementById("studentSession").innerText = student.session || "Not Provided";
+            document.getElementById("studentRoll").innerText = student.rollno || "Not Provided";
+            document.getElementById("studentEmail").innerText = student.email || "Not Provided";
+            document.getElementById("studentMobile").innerText = student.mobile || "Not Provided";
+
+            // Photo show karne ka code - FIXED
+            if (student.photo && student.photo !== "") {
+                document.getElementById("profilePhoto").src = student.photo;
+            } else {
+                document.getElementById("profilePhoto").src = "https://via.placeholder.com/150";
+            }
+        } else {
+            // Agar koi user login nahi hai to redirect to login page
+            alert("Please login first!");
+            window.location.href = "login.html";
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile | BCA Department</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <section class="login-section">
+
+        <div class="login-box">
+
+            <h1>Edit Profile</h1>
+
+            <form>
+
+                <!-- Full Name -->
+                <input type="text" id="name" placeholder="Full Name" required>
+
+                <!-- Email -->
+                <input type="email" id="email" placeholder="Email Address" required>
+
+                <!-- Mobile -->
+                <input type="tel" id="mobile" placeholder="Mobile Number" required>
+
+                <!-- Session -->
+                <select id="session" required>
+
+                    <option value="">Select Session</option>
+
+                    <option value="2023-26">2023-26</option>
+                    <option value="2024-27">2024-27</option>
+                    <option value="2025-28">2025-28</option>
+                    <option value="2026-29">2026-29</option>
+
+                </select>
+
+                <!-- Roll Number -->
+                <input type="number" id="rollno" placeholder="University Roll Number" min="1">
+
+                <!-- Profile Photo -->
+                <label>Change Profile Photo</label>
+
+                <input type="file" id="photo" accept="image/*">
+
+                <!-- Save Button -->
+                <button type="button" onclick="updateProfile()">
+                    Save Changes
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <script>
+
+        let student =
+            JSON.parse(localStorage.getItem("student"));
+
+        if (student) {
+
+            document.getElementById("name").value =
+                student.name || "";
+
+            document.getElementById("email").value =
+                student.email || "";
+
+            document.getElementById("mobile").value =
+                student.mobile || "";
+
+            document.getElementById("session").value =
+                student.session || "";
+
+            document.getElementById("rollno").value =
+                student.rollno || "";
+        }
+
+        function updateProfile() {
+
+            let photoInput =
+                document.getElementById("photo");
+
+            let photoURL =
+                student.photo;
+
+            if (photoInput.files.length > 0) {
+
+                photoURL =
+                    URL.createObjectURL(
+                        photoInput.files[0]
+                    );
+            }
+
+            let updatedUser = {
+
+                name:
+                    document.getElementById("name").value,
+
+                email:
+                    document.getElementById("email").value,
+
+                mobile:
+                    document.getElementById("mobile").value,
+
+                session:
+                    document.getElementById("session").value,
+
+                rollno:
+                    document.getElementById("rollno").value,
+
+                photo:
+                    photoURL
+
+            };
+
+            localStorage.setItem(
+                "student",
+                JSON.stringify(updatedUser)
+            );
+
+            alert(
+                "Profile Updated Successfully!"
+            );
+
+            window.location.href =
+                "profile.html";
+        }
+
+    </script>
+
+</body>
+
+</html>

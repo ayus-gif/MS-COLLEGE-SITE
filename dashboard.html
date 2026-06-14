@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Dashboard Header Start -->
+    <header class="dashboard-header">
+        <!-- logout Start -->
+        <button class="logout-btn" onclick="logoutUser()">
+            Logout
+        </button>
+
+        <h1>BCA Student Dashboard</h1>
+
+        <p id="welcomeUser">Welcome Student</p>
+    </header>
+    <!-- Dashboard Header End -->
+
+    <!-- Dashboard Stats Start -->
+    <div class="dashboard-container">
+
+        <div class="dashboard-card">
+            <h2><i class="fas fa-user-graduate"></i> Students</h2>
+            <p>120+</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h2><i class="fas fa-chalkboard-teacher"></i> Faculty</h2>
+            <p>10+</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h2><i class="fas fa-calendar-alt"></i> Sessions</h2>
+            <p>4 Active</p>
+        </div>
+
+    </div>
+    <!-- Dashboard Stats End -->
+
+    <!-- Dashboard Cards Start -->
+    <section class="dashboard-section">
+
+        <div class="dashboard-container">
+
+            <a href="profile.html" class="dashboard-card">
+                <h2><i class="fas fa-id-card"></i> Your Information</h2>
+                <p>View student details</p>
+            </a>
+
+            <a href="friends.html" class="dashboard-card">
+                <h2><i class="fas fa-comments"></i> Chat With Friends</h2>
+                <p>Connect with classmates</p>
+            </a>
+
+            <a href="admin.html" class="dashboard-card">
+                <h2><i class="fas fa-user-shield"></i> Chat With Admin/Sir</h2>
+                <p>Contact department</p>
+            </a>
+
+            <a href="session.html" class="dashboard-card">
+                <h2>Session</h2>
+                <p>View Academic Sessions</p>
+            </a>
+
+        </div>
+
+    </section>
+    <!-- Dashboard Cards End -->
+
+    <!-- Footer Start -->
+    <footer>
+        <p>© 2026 BCA Department | MS College Motihari</p>
+    </footer>
+    <!-- Footer End -->
+    <script>
+
+        let student =
+            JSON.parse(localStorage.getItem("student"));
+
+        if (student) {
+
+            document.getElementById("welcomeUser").innerText =
+                "Welcome " + student.name;
+
+        }
+
+    </script>
+    <script>
+
+function logoutUser(){
+
+localStorage.removeItem("student");
+
+window.location.href =
+"login.html";
+
+}
+
+</script>
+</body>
+
+</html>
